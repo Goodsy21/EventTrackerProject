@@ -20,7 +20,12 @@ public class Round {
 	
 	@Column(name="lost_balls")
 	private int lostBalls;
-
+	
+	@Column(name="green_fee")
+	private double greenFee;
+	
+	@Column(name="beverages_consumed")
+	private int beveragesConsumed;
 
 	public Round() {
 		super();
@@ -58,6 +63,22 @@ public class Round {
 		this.lostBalls = lostBalls;
 	}
 
+	public double getGreenFee() {
+		return greenFee;
+	}
+
+	public void setGreenFee(double greenFee) {
+		this.greenFee = greenFee;
+	}
+
+	public int getBeveragesConsumed() {
+		return beveragesConsumed;
+	}
+
+	public void setBeveragesConsumed(int beveragesConsumed) {
+		this.beveragesConsumed = beveragesConsumed;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -77,6 +98,7 @@ public class Round {
 
 	@Override
 	public String toString() {
-		return "Round [id=" + id + ", score=" + score + ", course=" + course + ", lostBalls=" + lostBalls + "]";
+		return "Round [id=" + id + ", score=" + score + ", course=" + course + ", lostBalls=" + lostBalls
+				+ ", greenFee=" + greenFee + ", beveragesConsumed=" + beveragesConsumed + "]";
 	}
 }

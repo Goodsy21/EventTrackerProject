@@ -16,11 +16,6 @@ public class RoundServiceImpl implements RoundService {
 	RoundRepository roundRepo;
 
 	@Override
-	public Optional<Round> findById(Integer roundId) {
-		return roundRepo.findById(roundId);
-	}
-
-	@Override
 	public List<Round> allRounds() {
 		return roundRepo.findAll();
 	}
@@ -32,11 +27,24 @@ public class RoundServiceImpl implements RoundService {
 	}
 
 	@Override
-	public Optional <Round> updateById(Integer roundId) {
-	Optional <Round> update = roundRepo.findById(roundId);
-	return update;
+	public Round updateById(Integer roundId, Round round) {
+	Optional<Round> update = roundRepo.findById(roundId);
+		if(update.isPresent()) {
+			Round updateMe = update.get();
+			updateMe.setCourse(round.getCourse());
+			updateMe.setScore(round.getScore());
+			updateMe.setLostBalls(round.getLostBalls());
+			updateMe.setGreenFee(round.getGreenFee());
+			updateMe.setBeveragesConsumed(round.getBeveragesConsumed());
+			return updateMe;
+		}
+	return null;
 	}
-
+	
+	@Override
+	public Optional<Round> findById(Integer roundId) {
+		return roundRepo.findById(roundId);
+	}
 	@Override
 	public boolean deleteRound(Integer roundId) {
 		boolean deleted = false;
