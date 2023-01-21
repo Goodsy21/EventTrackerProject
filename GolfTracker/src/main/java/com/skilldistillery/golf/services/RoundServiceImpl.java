@@ -1,21 +1,20 @@
 package com.skilldistillery.golf.services;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.skilldistillery.golf.entities.Round;
 import com.skilldistillery.golf.repositories.RoundRepository;
+
 @Service
-public class RoundServiceImpl implements RoundService{
+public class RoundServiceImpl implements RoundService {
 
 	@Autowired
 	RoundRepository roundRepo;
-	
+
 	@Override
 	public Round getRound(int roundId) {
-		
+
 		return null;
 	}
 
@@ -26,9 +25,9 @@ public class RoundServiceImpl implements RoundService{
 	}
 
 	@Override
-	public Round createRound() {
-		// TODO Auto-generated method stub
-		return null;
+	public Round createRound(Round newRound) {
+		Round created = roundRepo.saveAndFlush(newRound);
+		return created;
 	}
 
 	@Override
@@ -43,4 +42,16 @@ public class RoundServiceImpl implements RoundService{
 		return false;
 	}
 
+	@Override
+	public List<Round> getRoundByCourse(String course) {
+		List<Round> matches = roundRepo.findAll();
+		for (Round round : matches) {
+			if (round.getCourse() == course) {
+				matches.add(round);
+			} else {
+				return null;
+			}
+		}
+		return matches;
+	}
 }

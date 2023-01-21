@@ -7,7 +7,8 @@ import com.skilldistillery.golf.entities.Round;
 public interface RoundService {
 	Round getRound(int roundId);
 	List<Round> allRounds();
-	Round createRound();
+	Round createRound(Round newRound);
 	Round updateRound(int roundId);
 	boolean deleteRound(int roundId);
+	List<Round> getRoundByCourse(String course);
 }
