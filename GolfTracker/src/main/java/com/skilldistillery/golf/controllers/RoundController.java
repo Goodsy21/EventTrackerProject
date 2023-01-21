@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,11 +27,11 @@ public class RoundController {
 		return roundServ.allRounds();
 	}
 
-	@GetMapping("rounds/{course}")
-	public List<Round> findRoundsByCourse(@PathVariable String course, HttpServletResponse res,
+	@GetMapping("rounds/course")
+	public List<Round> findRoundsByCourse(String course, HttpServletResponse res,
 			HttpServletRequest req) {
 		List<Round> courseRounds;
-		courseRounds = roundServ.getRoundByCourse(course);
+		courseRounds = roundServ.findByCourse(course);
 		if (courseRounds.isEmpty()) {
 			res.setStatus(404);
 		}
@@ -42,4 +43,14 @@ public class RoundController {
 		return roundServ.createRound(round);
 	}
 
+	@DeleteMapping("rounds/id")
+	public void deleteRound(@PathVariable("id") Integer roundId, HttpServletResponse res) {
+		boolean delete = roundServ.deleteRound(roundId);
+		if (delete == true) {
+			res.setStatus(201);
+		} else {
+			res.setStatus(404);
+		}
+
+	}
 }

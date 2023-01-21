@@ -1,8 +1,11 @@
 package com.skilldistillery.golf.services;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.skilldistillery.golf.entities.Round;
 import com.skilldistillery.golf.repositories.RoundRepository;
 
@@ -13,14 +16,12 @@ public class RoundServiceImpl implements RoundService {
 	RoundRepository roundRepo;
 
 	@Override
-	public Round getRound(int roundId) {
-
-		return null;
+	public Optional<Round> findById(Integer roundId) {
+		return roundRepo.findById(roundId);
 	}
 
 	@Override
 	public List<Round> allRounds() {
-		// TODO Auto-generated method stub
 		return roundRepo.findAll();
 	}
 
@@ -31,19 +32,25 @@ public class RoundServiceImpl implements RoundService {
 	}
 
 	@Override
-	public Round updateRound(int roundId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Optional <Round> updateById(Integer roundId) {
+	Optional <Round> update = roundRepo.findById(roundId);
+	return update;
 	}
 
 	@Override
-	public boolean deleteRound(int roundId) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean deleteRound(Integer roundId) {
+		boolean deleted = false;
+		Optional<Round> deleteRd = roundRepo.findById(roundId);
+		if(deleteRd.isPresent()) {
+			Round deleteMe = deleteRd.get();
+			roundRepo.delete(deleteMe);
+			deleted = true;
+		}
+		return deleted;
 	}
 
 	@Override
-	public List<Round> getRoundByCourse(String course) {
+	public List<Round> findByCourse(String course) {
 		List<Round> matches = roundRepo.findAll();
 		for (Round round : matches) {
 			if (round.getCourse() == course) {
@@ -54,4 +61,5 @@ public class RoundServiceImpl implements RoundService {
 		}
 		return matches;
 	}
+
 }
