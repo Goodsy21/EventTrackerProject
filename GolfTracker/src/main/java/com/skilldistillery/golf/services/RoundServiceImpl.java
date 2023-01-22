@@ -23,12 +23,13 @@ public class RoundServiceImpl implements RoundService {
 	@Override
 	public Round createRound(Round round) {
 		Round created = new Round();
-		created.setId(round.getId());;
+		created.setId(round.getId());
 		created.setCourse(round.getCourse());
 		created.setScore(round.getScore());
 		created.setLostBalls(round.getLostBalls());
 		created.setGreenFee(round.getGreenFee());
 		created.setBeveragesConsumed(round.getBeveragesConsumed());
+		roundRepo.saveAndFlush(created);
 		return created;
 	}
 

@@ -33,6 +33,7 @@ public class RoundController {
 		Optional<Round> search = roundServ.findById(id);
 		if (search.isPresent()) {
 			Round found = search.get();
+			res.setStatus(201);
 			return found;
 		} else {
 			res.setStatus(404);
@@ -52,19 +53,17 @@ public class RoundController {
 
 	@PostMapping("rounds")
 	public Round create(@RequestBody Round round, HttpServletResponse res, HttpServletRequest req) {
-		Round created;
-		try {
-			created = roundServ.createRound(round);
-			res.setStatus(201);
-			StringBuffer url = req.getRequestURL();
-			url.append("/").append(created.getId());
-			res.setHeader("Location", url.toString());
-		} catch (Exception e) {
-			e.printStackTrace();
+		Round created = roundServ.createRound(round);
+		if (created == null) {
 			res.setStatus(404);
-			created = null;
+		} else {
+			StringBuffer url = req.getRequestURL();
+			url.append("/").append(round.getId());
+			res.setHeader("id", url.toString());
+			res.setStatus(201);
+			return created;
 		}
-		return created;
+		return null;
 	}
 
 	@DeleteMapping("rounds/{id}")
