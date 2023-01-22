@@ -2,10 +2,8 @@ package com.skilldistillery.golf.controllers;
 
 import java.util.List;
 import java.util.Optional;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.skilldistillery.golf.entities.Round;
 import com.skilldistillery.golf.services.RoundService;
 
@@ -27,12 +24,12 @@ public class RoundController {
 	private RoundService roundServ;
 
 	@GetMapping("rounds")
-	public List<Round> listAllRounds() {
+	public List<Round> findAllRounds() {
 		return roundServ.allRounds();
 	}
 
 	@GetMapping("rounds/{id}")
-	public Round getById(@PathVariable Integer id, HttpServletResponse res) {
+	public Round findById(@PathVariable Integer id, HttpServletResponse res) {
 		Optional<Round> search = roundServ.findById(id);
 		if (search.isPresent()) {
 			Round found = search.get();
@@ -44,7 +41,7 @@ public class RoundController {
 	}
 
 	@GetMapping("rounds/course")
-	public List<Round> findRoundsByCourse(String course, HttpServletResponse res, HttpServletRequest req) {
+	public List<Round> findByCourse(String course, HttpServletResponse res, HttpServletRequest req) {
 		List<Round> courseRounds;
 		courseRounds = roundServ.findByCourse(course);
 		if (courseRounds.isEmpty()) {
@@ -54,8 +51,20 @@ public class RoundController {
 	}
 
 	@PostMapping("rounds")
-	public Round createRound(Round round) {
-		return roundServ.createRound(round);
+	public Round create(@RequestBody Round round, HttpServletResponse res, HttpServletRequest req) {
+		Round created;
+		try {
+			created = roundServ.createRound(round);
+			res.setStatus(201);
+			StringBuffer url = req.getRequestURL();
+			url.append("/").append(created.getId());
+			res.setHeader("Location", url.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+			res.setStatus(404);
+			created = null;
+		}
+		return created;
 	}
 
 	@DeleteMapping("rounds/{id}")

@@ -2,14 +2,14 @@ package com.skilldistillery.golf.services;
 
 import java.util.List;
 import java.util.Optional;
-
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.skilldistillery.golf.entities.Round;
 import com.skilldistillery.golf.repositories.RoundRepository;
 
 @Service
+@Transactional
 public class RoundServiceImpl implements RoundService {
 
 	@Autowired
@@ -21,8 +21,14 @@ public class RoundServiceImpl implements RoundService {
 	}
 
 	@Override
-	public Round createRound(Round newRound) {
-		Round created = roundRepo.saveAndFlush(newRound);
+	public Round createRound(Round round) {
+		Round created = new Round();
+		created.setId(round.getId());;
+		created.setCourse(round.getCourse());
+		created.setScore(round.getScore());
+		created.setLostBalls(round.getLostBalls());
+		created.setGreenFee(round.getGreenFee());
+		created.setBeveragesConsumed(round.getBeveragesConsumed());
 		return created;
 	}
 
