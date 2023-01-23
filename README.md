@@ -26,7 +26,7 @@ IP address 54.244.153.175
 
 #Lessons Learned
 -When you're banging your head against the wall to figure out a problem, don't hesitate to take a step back. Come back with fresh eyes and you'll likely realize the mistake you've made. You'll likely also beat yourself up about it, which is warranted, dummy; but at least you learned a lesson.
--Despite only having one table, I can see the importance of database planning ahead to work through tables and keys. 
+-Despite only having one table, I can see the importance of database planning ahead to work through tables and keys.
 
 ##Technologies and Methodologies Used
 -Java
@@ -38,3 +38,8 @@ IP address 54.244.153.175
 -Gradle
 -MYsql
 -GIThub
+
+##Project Goals
+-User Integration
+-Course Integration
+-Social(!) Integration
