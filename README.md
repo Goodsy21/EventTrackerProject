@@ -27,7 +27,6 @@ IP address 54.244.153.175
 #Lessons Learned
 -ATTENTION TO DETAIL... when you're banging your head against the wall to figure out a problem, don't hesitate to take a step back. Come back with fresh eyes and you'll likely realize the mistake you've made. You'll likely also beat yourself up about it, which is warranted, dummy; but at least you learned a lesson.
 
-
 ##Technologies and Methodologies Used
 -Java
 -SQL
