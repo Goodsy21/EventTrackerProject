@@ -2,16 +2,16 @@
 ###GolfTracker
 
 ##Overview
-GolfTracker is a webpage used to track stats for rounds of golf with a spin. Instead of a traditional tracker which focuses on bogeys and birdies and general scores, this tracker tracks lost balls, beverages consumed, and money spent.
+GolfTracker is an API used to track stats for rounds of golf with a spin. Instead of a traditional tracker which focuses on bogeys and birdies and general scores, this tracker tracks lost balls, beverages consumed, and money spent.
 
 ##Description
 After a round of golf a user can input their statistics which are stored in a database.
-Users can look up rounds by id, update by id, find all rounds, or delete rounds.
+Users can look up rounds by id, update by id, find all rounds, create new rounds or delete rounds.
 
 ##MYsql directions
 use mysql -u golfer -p
 user and pw = golfer
-use golfstatsdb;
+DB access = use golfstatsdb;
 IP address 54.244.153.175
 
 ##REST Endpoints
@@ -25,8 +25,8 @@ IP address 54.244.153.175
 | DELETE    | `/api/rounds/{id}` |              | |
 
 #Lessons Learned
--When you're banging your head against the wall to figure out a problem, don't hesitate to take a step back. Come back with fresh eyes and you'll likely realize the mistake you've made. You'll likely also beat yourself up about it, which is warranted, dummy; but at least you learned a lesson.
--Despite only having one table, I can see the importance of database planning ahead to work through tables and keys.
+-ATTENTION TO DETAIL... when you're banging your head against the wall to figure out a problem, don't hesitate to take a step back. Come back with fresh eyes and you'll likely realize the mistake you've made. You'll likely also beat yourself up about it, which is warranted, dummy; but at least you learned a lesson.
+
 
 ##Technologies and Methodologies Used
 -Java
