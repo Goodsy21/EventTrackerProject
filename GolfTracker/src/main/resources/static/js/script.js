@@ -6,31 +6,29 @@ window.addEventListener('load', function() {
 function init() {
 	loadRounds();
 	document.newRoundForm.button.addEventListener('click', function(evt) {
-	evt.preventDefault();
-	let newRound = {
-		score: document.newRoundForm.score.value,
-		course: document.newRoundForm.course.value,
-		greenFee: document.newRoundForm.greenFee.value,
-		beveragesConsumed: document.newRoundForm.beveragesConsumed.value,
-		lostBalls: document.newRoundForm.lostBalls.value
+		evt.preventDefault();
+		let newRound = {
+			score: document.newRoundForm.score.value,
+			course: document.newRoundForm.course.value,
+			greenFee: document.newRoundForm.greenFee.value,
+			beveragesConsumed: document.newRoundForm.beveragesConsumed.value,
+			lostBalls: document.newRoundForm.lostBalls.value
 		};
 		console.log(newRound);
 		addRound(newRound);
 	});
-}
-function displayError(message) {
-	let div = document.getElementById('appendMe');
-	div.textContent = message;	
+
 }
 
 function loadRounds() {
 	//AJAX
+
 	let xhr = new XMLHttpRequest();
 	xhr.open('GET', 'api/rounds');
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 200 || xhr.status === 201) {
-				let rounds = JSON.parse(xhr.responseText); 
+				rounds = JSON.parse(xhr.responseText);
 				displayRounds(rounds);
 				console.log(rounds);
 			} else {
@@ -42,6 +40,74 @@ function loadRounds() {
 	xhr.send();
 };
 
+function displayError(message) {
+	let div = document.getElementById('appendMe');
+	div.textContent = message;
+}
+
+function editRd(e) {
+	let editMe = e.target.id;
+	console.log(editMe);
+	console.log(rounds);
+	let roundToLoad;
+	for (let i = 0; i < rounds.length; i++) {
+		if (rounds[i].id == editMe) {
+			roundToLoad = rounds[i];
+			break;
+		}
+	} 
+	let editor = document.getElementById('editor');
+	editor.style.display = 'block';
+	document.editRoundForm.course.value = roundToLoad.course;
+	document.editRoundForm.greenFee.value = roundToLoad.greenFee;
+	document.editRoundForm.score.value = roundToLoad.score;
+	document.editRoundForm.lostBalls.value = roundToLoad.lostBalls;
+	document.editRoundForm.beveragesConsumed.value = roundToLoad.beveragesConsumed;
+	document.editRoundForm.button.addEventListener('click', function(evt) {
+		evt.preventDefault();
+		let roundId = roundToLoad.id;
+		console.log(roundId);
+		edit(roundToLoad);
+	});
+}
+
+let rounds = [];
+
+function edit(roundToLoad) {
+	//AJAX
+	console.log(roundToLoad);
+	let xhr = new XMLHttpRequest();
+	xhr.open('PUT', 'api/rounds' + roundToLoad);
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 200 || xhr.status === 201) {
+				let update = JSON.parse(xhr.response);
+				init();
+			} else {
+				displayError('Error finding rounds...' + xhr.statusText);
+			}
+		}
+	};
+	xhr.setRequestHeader("Content-type", "application/json");
+	xhr.send();
+};
+
+function deleteRound(toDelete) {
+	console.log(toDelete);
+	let xhr = new XMLHttpRequest();
+	xhr.open('DELETE', 'api/rounds/' + toDelete);
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === 4) {
+			if (xhr.status === 200 || xhr.status === 201) {
+				loadRounds();
+			} else {
+				displayError('No matching round ID' + xhr.status);
+			}
+		}
+	};
+	xhr.send();
+};
+
 function addRound(newRound) {
 	//AJAX
 	let xhr = new XMLHttpRequest();
@@ -49,12 +115,10 @@ function addRound(newRound) {
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 200 || xhr.status === 201) {
-				let newRound = JSON.parse(xhr.responseText); 
+				let newRound = JSON.parse(xhr.responseText);
 				loadRounds();
-				console.log(newRound);
 			} else {
 				displayError('Error adding a new round' + xhr.status);
-				
 			}
 		}
 	};
@@ -64,9 +128,7 @@ function addRound(newRound) {
 
 function displayRounds(rounds) {
 	let div = document.getElementById('appendMe');
-	document.body.append(div);
 	div.textContent = '';
-
 	let table = document.createElement('table');
 	let tableHead = document.createElement('thead');
 	let tableRow = document.createElement('tr');
@@ -105,19 +167,27 @@ function displayRounds(rounds) {
 		let tableData4 = document.createElement('td');
 		let tableData5 = document.createElement('td');
 		let tableData6 = document.createElement('td');
+		let edit = document.createElement('button');
 		let roundId = rounds[i].id;
+		edit.textContent = "Edit";
+		edit.id = rounds[i].id;
+		let del = document.createElement('button');
+		del.textContent = "Delete";
+		del.id = rounds[i].id;
+
+		edit.addEventListener('click', editRd);
+		del.addEventListener('click', function(evt) {
+			evt.preventDefault();
+			let toDelete = del.id;
+			deleteRound(toDelete);
+		});
+
+
 		let courseName = rounds[i].course;
 		let par = rounds[i].score;
 		let fee = rounds[i].greenFee;
 		let balls = rounds[i].lostBalls;
 		let bevs = rounds[i].beveragesConsumed;
-		
-		console.log(roundId);
-		console.log(courseName);
-		console.log(par);
-		console.log(balls);
-		console.log(bevs);
-		console.log('$' + fee);
 
 		tableData1.textContent = roundId;
 		tableData2.textContent = courseName;
@@ -132,6 +202,8 @@ function displayRounds(rounds) {
 		tableRow2.append(tableData4);
 		tableRow2.append(tableData5);
 		tableRow2.append(tableData6);
+		tableRow2.append(edit);
+		tableRow2.append(del);
 
 		table.style.textAlign = "center";
 		table.style.border = "solid";

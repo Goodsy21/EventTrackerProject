@@ -8,7 +8,7 @@
 <body>
 	<h1>Golf Tracker</h1>
 	<div id='appendMe'></div>
-
+<div id='add'>
 	<h3>Add a Round</h3>
 	<form name='newRoundForm'>
 		<span id='span'>Course Name: </span><input type='text' name='course'><br>
@@ -18,7 +18,19 @@
 		<span id='span'>Beverages Consumed: </span><input type='number' name='beveragesConsumed'><br>
 		<button type="button" id='button' name="button">Add Round</button>
 	</form>
-	<br>
-
+</div>
+<div id="editor" style="display: none; text-align: center">
+<h3>Edit Round</h3>
+<form name='editRoundForm'>
+		<span id='span'>Course Name: </span><input type='text' name='course'><br>
+		<span id='span'>Green Fee: </span><input type='number' name='greenFee'><br>
+		<span id='span'>Score: </span><input type='number' name='score'><br>
+		<span id='span'>Lost Balls: </span><input type='number' name='lostBalls'><br> 
+		<span id='span'>Beverages Consumed: </span><input type='number' name='beveragesConsumed'><br>
+		<input type='hidden' name='id'>
+		<button type="button" id='button' name="button">Edit Round</button>
+	</form>
+</div>
+	<div id='appendMe'></div>
 </body>
 </html>
