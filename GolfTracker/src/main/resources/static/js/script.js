@@ -63,11 +63,19 @@ function editRd(e) {
 	document.editRoundForm.score.value = roundToLoad.score;
 	document.editRoundForm.lostBalls.value = roundToLoad.lostBalls;
 	document.editRoundForm.beveragesConsumed.value = roundToLoad.beveragesConsumed;
-	document.editRoundForm.button.addEventListener('click', function(evt) {
-		evt.preventDefault();
 		let roundId = roundToLoad.id;
-		console.log(roundId);
-		edit(roundToLoad);
+	document.editRoundForm.button.addEventListener('click', function(evt) {
+		let editedRound = {
+			id: roundId,
+			score: document.editRoundForm.score.value,
+			course: document.editRoundForm.course.value,
+			greenFee: document.editRoundForm.greenFee.value,
+			beveragesConsumed: document.editRoundForm.beveragesConsumed.value,
+			lostBalls: document.editRoundForm.lostBalls.value
+		};
+		evt.preventDefault();
+		console.log(editedRound);
+		edit(editedRound);
 	});
 }
 
@@ -77,11 +85,12 @@ function edit(roundToLoad) {
 	//AJAX
 	console.log(roundToLoad);
 	let xhr = new XMLHttpRequest();
-	xhr.open('PUT', 'api/rounds' + roundToLoad);
+	xhr.open('PUT', 'api/rounds/' + roundToLoad.id);
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 200 || xhr.status === 201) {
 				let update = JSON.parse(xhr.response);
+				console.log(update)
 				init();
 			} else {
 				displayError('Error finding rounds...' + xhr.statusText);
@@ -89,7 +98,7 @@ function edit(roundToLoad) {
 		}
 	};
 	xhr.setRequestHeader("Content-type", "application/json");
-	xhr.send();
+	xhr.send(JSON.stringify(roundToLoad));
 };
 
 function deleteRound(toDelete) {
