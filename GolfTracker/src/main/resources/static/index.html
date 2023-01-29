@@ -6,31 +6,51 @@
 <script type="text/javascript" src="js/script.js/"></script>
 </head>
 <body>
-	<h1>Golf Tracker</h1>
-	<div id='appendMe'></div>
-<div id='add'>
-	<h3>Add a Round</h3>
-	<form name='newRoundForm'>
-		<span id='span'>Course Name: </span><input type='text' name='course'><br>
-		<span id='span'>Green Fee: </span><input type='number' name='greenFee'><br>
-		<span id='span'>Score: </span><input type='number' name='score'><br>
-		<span id='span'>Lost Balls: </span><input type='number' name='lostBalls'><br> 
-		<span id='span'>Beverages Consumed: </span><input type='number' name='beveragesConsumed'><br>
-		<button type="button" id='button' name="button">Add Round</button>
-	</form>
-</div>
-<div id="editor" style="display: none; text-align: center">
-<h3>Edit Round</h3>
-<form name='editRoundForm'>
-		<span id='span'>Course Name: </span><input type='text' name='course'><br>
-		<span id='span'>Green Fee: </span><input type='number' name='greenFee'><br>
-		<span id='span'>Score: </span><input type='number' name='score'><br>
-		<span id='span'>Lost Balls: </span><input type='number' name='lostBalls'><br> 
-		<span id='span'>Beverages Consumed: </span><input type='number' name='beveragesConsumed'><br>
-		<input type='hidden' name='id'>
-		<button type="button" id='button' name="button">Edit Round</button>
-	</form>
-</div>
+	<h1 style="text-align: center">Golf Tracker</h1>
+	<div id='appendMe' style="text-align: center"></div>
+	<div id="totals" style="display: block;">
+		<ul style="align-self: center">
+			<ins>Statistics for All Rounds</ins>
+			<li id='avgScore'></li>
+			<li id='allBalls'>
+				<!-- <ul>
+					<li id='proV'>B</li>
+					<li id='cheap'>B</li>
+				</ul> -->
+			</li>
+			<li id='allBevs'></li>
+			<li id='allFees'></li>
+		</ul>
+
+	</div>
+	<div id='add'>
+		<h3>Add a Round</h3>
+		<form name='newRoundForm'>
+			<span id='span'>Course Name: </span><input type='text' name='course'
+				required="required"><br> <span id='span'>Green
+				Fee: </span><input type='number' name='greenFee' required="required"><br>
+			<span id='span'>Score: </span><input type='number' name='score'
+				required="required"><br> <span id='span'>Lost
+				Balls: </span><input type='number' name='lostBalls'><br> <span
+				id='span'>Beverages Consumed: </span><input type='number'
+				name='beveragesConsumed'><br>
+			<button type="button" id='button' name="button">Add Round</button>
+		</form>
+	</div>
+	<div id="editor" style="display: none">
+		<h3>Edit Round</h3>
+		<form name='editRoundForm'>
+			<span id='span'>Course Name: </span><input type='text' name='course'><br>
+			<span id='span'>Green Fee: </span><input type='number'
+				name='greenFee'><br> <span id='span'>Score: </span><input
+				type='number' name='score'><br> <span id='span'>Lost
+				Balls: </span><input type='number' name='lostBalls'><br> <span
+				id='span'>Beverages Consumed: </span><input type='number'
+				name='beveragesConsumed'><br> <input type='hidden'
+				name='id'>
+			<button type="button" id='button' name="button">Edit Round</button>
+		</form>
+	</div>
 	<div id='appendMe'></div>
 </body>
 </html>

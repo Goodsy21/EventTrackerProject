@@ -14,8 +14,9 @@ function init() {
 			beveragesConsumed: document.newRoundForm.beveragesConsumed.value,
 			lostBalls: document.newRoundForm.lostBalls.value
 		};
-		console.log(newRound);
-		addRound(newRound);
+			console.log(newRound);
+			addRound(newRound);
+		
 	});
 
 }
@@ -48,23 +49,30 @@ function displayError(message) {
 function editRd(e) {
 	let editMe = e.target.id;
 	console.log(editMe);
-	console.log(rounds);
+	//console.log(rounds);
 	let roundToLoad;
 	for (let i = 0; i < rounds.length; i++) {
 		if (rounds[i].id == editMe) {
 			roundToLoad = rounds[i];
-			break;
+			//break;
 		}
-	} 
+	}
+	//console.log(roundToLoad);
+	let span = document.getElementById('span');
+	span.style.minWidth = '150px';
 	let editor = document.getElementById('editor');
 	editor.style.display = 'block';
+	let addView = document.getElementById('add');
+	addView.style.display = 'none';
 	document.editRoundForm.course.value = roundToLoad.course;
 	document.editRoundForm.greenFee.value = roundToLoad.greenFee;
 	document.editRoundForm.score.value = roundToLoad.score;
 	document.editRoundForm.lostBalls.value = roundToLoad.lostBalls;
 	document.editRoundForm.beveragesConsumed.value = roundToLoad.beveragesConsumed;
-		let roundId = roundToLoad.id;
+	let roundId = roundToLoad.id;
+	//console.log(roundToLoad);
 	document.editRoundForm.button.addEventListener('click', function(evt) {
+			evt.preventDefault();
 		let editedRound = {
 			id: roundId,
 			score: document.editRoundForm.score.value,
@@ -73,17 +81,30 @@ function editRd(e) {
 			beveragesConsumed: document.editRoundForm.beveragesConsumed.value,
 			lostBalls: document.editRoundForm.lostBalls.value
 		};
-		evt.preventDefault();
-		console.log(editedRound);
-		edit(editedRound);
+		if (editedRound.course == '' || editedRound.score < 1 || editedRound.greenFee < 1) {
+			alert('You must fill out fields: Course Name, Green Fee and Score');
+		} else if (editedRound.course == roundToLoad.course
+			&& editedRound.score == roundToLoad.score
+			&& editedRound.lostBalls == roundToLoad.lostBalls
+			&& editedRound.beveragesConsumed == roundToLoad.beveragesConsumed
+			&& editedRound.greenFee == roundToLoad.greenFee
+		) {
+			alert('You must make a change to the round');
+		} else {
+			editor.style.display = 'none';
+			addView.style.display = 'block';
+			//console.log(editedRound);
+			edit(editedRound);
+		}
 	});
+	//init();
 }
 
 let rounds = [];
 
 function edit(roundToLoad) {
 	//AJAX
-	console.log(roundToLoad);
+	console.log("EditFuntion: " + roundToLoad);
 	let xhr = new XMLHttpRequest();
 	xhr.open('PUT', 'api/rounds/' + roundToLoad.id);
 	xhr.onreadystatechange = function() {
@@ -91,7 +112,7 @@ function edit(roundToLoad) {
 			if (xhr.status === 200 || xhr.status === 201) {
 				let update = JSON.parse(xhr.response);
 				console.log(update)
-				init();
+				loadRounds();
 			} else {
 				displayError('Error finding rounds...' + xhr.statusText);
 			}
@@ -119,12 +140,21 @@ function deleteRound(toDelete) {
 
 function addRound(newRound) {
 	//AJAX
+	if (newRound.course == '' || newRound.score < 1 || newRound.greenFee < 1) {
+			alert('You must fill out fields: Course Name, Green Fee and Score');
+		} else {
 	let xhr = new XMLHttpRequest();
+	document.newRoundForm.score.value = '';
+	document.newRoundForm.course.value = '';
+	document.newRoundForm.greenFee.value = '';
+	document.newRoundForm.beveragesConsumed.value = '';
+	document.newRoundForm.lostBalls.value = '';
 	xhr.open('POST', 'api/rounds');
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 200 || xhr.status === 201) {
 				let newRound = JSON.parse(xhr.responseText);
+				console.log(newRound);
 				loadRounds();
 			} else {
 				displayError('Error adding a new round' + xhr.status);
@@ -133,6 +163,7 @@ function addRound(newRound) {
 	};
 	xhr.setRequestHeader("Content-type", "application/json");
 	xhr.send(JSON.stringify(newRound));
+	}
 }
 
 function displayRounds(rounds) {
@@ -167,6 +198,47 @@ function displayRounds(rounds) {
 	table.append(tableBody);
 	div.style.alignItems = "center";
 
+	//Total Stats
+	let allBalls = 0;
+	let allFees = 0;
+	let totalScore = 0.0;
+	let allBevs = 0;
+	let totalRds = rounds.length;
+	rounds.forEach(round => {
+		allBalls += round.lostBalls;
+	});
+	rounds.forEach(round => {
+		allFees += round.greenFee;
+	});
+	rounds.forEach(round => {
+		allBevs += round.beveragesConsumed;
+	});
+	rounds.forEach(round => {
+		totalScore += round.score;
+	});
+	let avgScore = (totalScore / totalRds).toFixed(1);
+	let avgFee = (allFees / totalRds).toFixed(2);
+	let avgBalls = (allBalls / totalRds).toFixed(1);
+	let avgBevs = (allBevs / totalRds).toFixed(1);
+	console.log('Total Rds: ' + totalRds);
+	console.log('Total Fees: ' + allFees);
+	console.log('Avg Fees: ' + avgFee);
+	console.log('Avg Score: ' + avgScore);
+	console.log('All Balls: ' + allBalls);
+	console.log('Avg Balls: ' + avgBalls);
+	console.log('All Bevs: ' + allBevs);
+	console.log('Avg Bevs: ' + avgBevs);
+
+	//Display Stats
+	let scoreDisp = document.getElementById('avgScore');
+	let ballsDisp = document.getElementById('allBalls');
+	let bevsDisp = document.getElementById('allBevs');
+	let feesDisp = document.getElementById('allFees');
+	scoreDisp.textContent = 'Average score: ' + avgScore;
+	feesDisp.textContent = '$' + avgFee + ' per round ($' + allFees + ' total)';
+	ballsDisp.textContent = avgBalls + ' balls lost per round';
+	bevsDisp.textContent = avgBevs + ' beverages per round';
+
 	for (var i in rounds) {
 		let tableRow2 = document.createElement('tr');
 		tableBody.append(tableRow2);
@@ -183,14 +255,12 @@ function displayRounds(rounds) {
 		let del = document.createElement('button');
 		del.textContent = "Delete";
 		del.id = rounds[i].id;
-
 		edit.addEventListener('click', editRd);
 		del.addEventListener('click', function(evt) {
 			evt.preventDefault();
 			let toDelete = del.id;
 			deleteRound(toDelete);
 		});
-
 
 		let courseName = rounds[i].course;
 		let par = rounds[i].score;
@@ -203,7 +273,7 @@ function displayRounds(rounds) {
 		tableData3.textContent = par;
 		tableData4.textContent = balls;
 		tableData5.textContent = bevs;
-		tableData6.textContent = '$' + fee + ' green fee';
+		tableData6.textContent = '$' + fee;
 
 		tableRow2.append(tableData1);
 		tableRow2.append(tableData2);
@@ -232,5 +302,6 @@ function displayRounds(rounds) {
 		tableData5.style.border = "solid";
 		tableData6.style.border = "solid";
 	}
+
 };
 
