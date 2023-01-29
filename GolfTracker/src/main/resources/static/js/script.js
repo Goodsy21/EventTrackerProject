@@ -14,16 +14,26 @@ function init() {
 			beveragesConsumed: document.newRoundForm.beveragesConsumed.value,
 			lostBalls: document.newRoundForm.lostBalls.value
 		};
-			console.log(newRound);
-			addRound(newRound);
-		
+		console.log(newRound);
+		addRound(newRound);
+
 	});
 
+	document.editRoundForm.button.addEventListener('click', function(evt) {
+		evt.preventDefault();
+		let editedRound = {
+			id: document.editRoundForm.id.value,
+			score: document.editRoundForm.score.value,
+			course: document.editRoundForm.course.value,
+			greenFee: document.editRoundForm.greenFee.value,
+			beveragesConsumed: document.editRoundForm.beveragesConsumed.value,
+			lostBalls: document.editRoundForm.lostBalls.value
+		}
+		console.log("IN EVENT LISTENER BUTTON #2" + editedRound.course);
+		edit(editedRound);
+	});
 }
-
 function loadRounds() {
-	//AJAX
-
 	let xhr = new XMLHttpRequest();
 	xhr.open('GET', 'api/rounds');
 	xhr.onreadystatechange = function() {
@@ -37,7 +47,6 @@ function loadRounds() {
 			}
 		}
 	};
-
 	xhr.send();
 };
 
@@ -57,9 +66,8 @@ function editRd(e) {
 			//break;
 		}
 	}
-	//console.log(roundToLoad);
-	let span = document.getElementById('span');
-	span.style.minWidth = '150px';
+	console.log(roundToLoad);
+
 	let editor = document.getElementById('editor');
 	editor.style.display = 'block';
 	let addView = document.getElementById('add');
@@ -69,50 +77,29 @@ function editRd(e) {
 	document.editRoundForm.score.value = roundToLoad.score;
 	document.editRoundForm.lostBalls.value = roundToLoad.lostBalls;
 	document.editRoundForm.beveragesConsumed.value = roundToLoad.beveragesConsumed;
-	let roundId = roundToLoad.id;
-	//console.log(roundToLoad);
-	document.editRoundForm.button.addEventListener('click', function(evt) {
-			evt.preventDefault();
-		let editedRound = {
-			id: roundId,
-			score: document.editRoundForm.score.value,
-			course: document.editRoundForm.course.value,
-			greenFee: document.editRoundForm.greenFee.value,
-			beveragesConsumed: document.editRoundForm.beveragesConsumed.value,
-			lostBalls: document.editRoundForm.lostBalls.value
-		};
-		if (editedRound.course == '' || editedRound.score < 1 || editedRound.greenFee < 1) {
-			alert('You must fill out fields: Course Name, Green Fee and Score');
-		} else {
-			editor.style.display = 'none';
-			addView.style.display = 'block';
-			//console.log(editedRound);
-			edit(editedRound);
-	loadRounds();
-		}
-	});
+	document.editRoundForm.id.value = roundToLoad.id;
 }
 
 let rounds = [];
 
-function edit(roundToLoad) {
+function edit(e) {
 	//AJAX
-	console.log("EditFuntion: " + roundToLoad);
+	console.log("EditFunction: " + e.id);
 	let xhr = new XMLHttpRequest();
-	xhr.open('PUT', 'api/rounds/' + roundToLoad.id);
+	xhr.open('PUT', 'api/rounds/' + e.id);
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4) {
 			if (xhr.status === 200 || xhr.status === 201) {
 				let update = JSON.parse(xhr.response);
-				console.log(update)
-				//loadRounds();
+				console.log(update);
+				loadRounds();
 			} else {
 				displayError('Error finding rounds...' + xhr.statusText);
 			}
 		}
 	};
 	xhr.setRequestHeader("Content-type", "application/json");
-	xhr.send(JSON.stringify(roundToLoad));
+	xhr.send(JSON.stringify(e));
 };
 
 function deleteRound(toDelete) {
@@ -134,34 +121,38 @@ function deleteRound(toDelete) {
 function addRound(newRound) {
 	//AJAX
 	if (newRound.course == '' || newRound.score < 1 || newRound.greenFee < 1) {
-			alert('You must fill out fields: Course Name, Green Fee and Score');
-		} else {
-	let xhr = new XMLHttpRequest();
-	document.newRoundForm.score.value = '';
-	document.newRoundForm.course.value = '';
-	document.newRoundForm.greenFee.value = '';
-	document.newRoundForm.beveragesConsumed.value = '';
-	document.newRoundForm.lostBalls.value = '';
-	xhr.open('POST', 'api/rounds');
-	xhr.onreadystatechange = function() {
-		if (xhr.readyState === 4) {
-			if (xhr.status === 200 || xhr.status === 201) {
-				let newRound = JSON.parse(xhr.responseText);
-				console.log(newRound);
-				loadRounds();
-			} else {
-				displayError('Error adding a new round' + xhr.status);
+		alert('You must fill out fields: Course Name, Green Fee and Score');
+	} else {
+		let xhr = new XMLHttpRequest();
+		document.newRoundForm.score.value = '';
+		document.newRoundForm.course.value = '';
+		document.newRoundForm.greenFee.value = '';
+		document.newRoundForm.beveragesConsumed.value = '';
+		document.newRoundForm.lostBalls.value = '';
+		xhr.open('POST', 'api/rounds');
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4) {
+				if (xhr.status === 200 || xhr.status === 201) {
+					let newRound = JSON.parse(xhr.responseText);
+					console.log(newRound);
+					loadRounds();
+				} else {
+					displayError('Error adding a new round' + xhr.status);
+				}
 			}
-		}
-	};
-	xhr.setRequestHeader("Content-type", "application/json");
-	xhr.send(JSON.stringify(newRound));
+		};
+		xhr.setRequestHeader("Content-type", "application/json");
+		xhr.send(JSON.stringify(newRound));
 	}
 }
 
 function displayRounds(rounds) {
 	let div = document.getElementById('appendMe');
 	div.textContent = '';
+	let editor = document.getElementById('editor');
+	editor.style.display = 'none';
+	let addView = document.getElementById('add');
+	addView.style.display = 'block';
 	let table = document.createElement('table');
 	let tableHead = document.createElement('thead');
 	let tableRow = document.createElement('tr');
@@ -213,14 +204,6 @@ function displayRounds(rounds) {
 	let avgFee = (allFees / totalRds).toFixed(2);
 	let avgBalls = (allBalls / totalRds).toFixed(1);
 	let avgBevs = (allBevs / totalRds).toFixed(1);
-	console.log('Total Rds: ' + totalRds);
-	console.log('Total Fees: ' + allFees);
-	console.log('Avg Fees: ' + avgFee);
-	console.log('Avg Score: ' + avgScore);
-	console.log('All Balls: ' + allBalls);
-	console.log('Avg Balls: ' + avgBalls);
-	console.log('All Bevs: ' + allBevs);
-	console.log('Avg Bevs: ' + avgBevs);
 
 	//Display Stats
 	let scoreDisp = document.getElementById('avgScore');
@@ -297,4 +280,3 @@ function displayRounds(rounds) {
 	}
 
 };
-
