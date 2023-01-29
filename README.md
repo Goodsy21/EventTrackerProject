@@ -16,29 +16,31 @@ IP address 54.244.153.175
 
 ##REST Endpoints
 
-| HTTP Verb | URI                  | Request Body | Response Body |
-|-----------|----------------------|--------------|---------------|
-| GET       | `/api/rounds`    |              | JSON of `List<Round>` |
-| GET       | `/api/rounds/{id}` |              | JSON of `Round` 17 |
-| POST      | `/api/rounds`    | JSON of a new `Round` | JSON of created `Round` |
-| PUT       | `/api/rounds/{id}` | JSON of a new version of `Round` 17 | JSON of updated `Round` |
-| DELETE    | `/api/rounds/{id}` |              | |
+| HTTP Verb | URI                  | Request Body                        | Response Body           |
+|-----------|----------------------|-------------------------------------|-------------------------|
+| GET       | `/api/rounds`        |                                     | JSON of `List<Round>`   |
+| GET       | `/api/rounds/{id}`   |                                     | JSON of `Round` 17      |
+| POST      | `/api/rounds`        | JSON of a new `Round`               | JSON of created `Round` |
+| PUT       | `/api/rounds/{id}`   | JSON of a new version of `Round` 17 | JSON of updated `Round` |
+| DELETE    | `/api/rounds/{id}`   |                                     |                         |
 
 #Lessons Learned
--ATTENTION TO DETAIL... when you're banging your head against the wall to figure out a problem, don't hesitate to take a step back. Come back with fresh eyes and you'll likely realize the mistake you've made. You'll likely also beat yourself up about it, which is warranted, dummy; but at least you learned a lesson.
-
+- ATTENTION TO DETAIL... when you're banging your head against the wall to figure out a problem, don't hesitate to take a step back. Come back with fresh eyes and you'll likely realize the mistake you've made. You'll likely also beat yourself up about it, which is warranted, dummy; but at least you learned a lesson.
+-
 ##Technologies and Methodologies Used
--Java
--SQL
--Hibernate
--Spring Framework
--Spring Boot
--Postman
--Gradle
--MYsql
--GIThub
+- Java
+- SQL
+- Hibernate
+- Spring Framework
+- Spring Boot
+- Postman
+- Gradle
+- MYsql
+- GIThub
+- AJAX
 
 ##Project Goals
--User Integration
--Course Integration
--Social(!) Integration
+- User Integration
+- Course Integration
+- Social(!) Integration
+- Improve Styling
