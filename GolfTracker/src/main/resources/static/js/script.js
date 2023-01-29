@@ -83,21 +83,14 @@ function editRd(e) {
 		};
 		if (editedRound.course == '' || editedRound.score < 1 || editedRound.greenFee < 1) {
 			alert('You must fill out fields: Course Name, Green Fee and Score');
-		} else if (editedRound.course == roundToLoad.course
-			&& editedRound.score == roundToLoad.score
-			&& editedRound.lostBalls == roundToLoad.lostBalls
-			&& editedRound.beveragesConsumed == roundToLoad.beveragesConsumed
-			&& editedRound.greenFee == roundToLoad.greenFee
-		) {
-			alert('You must make a change to the round');
 		} else {
 			editor.style.display = 'none';
 			addView.style.display = 'block';
 			//console.log(editedRound);
 			edit(editedRound);
+	loadRounds();
 		}
 	});
-	//init();
 }
 
 let rounds = [];
@@ -112,7 +105,7 @@ function edit(roundToLoad) {
 			if (xhr.status === 200 || xhr.status === 201) {
 				let update = JSON.parse(xhr.response);
 				console.log(update)
-				loadRounds();
+				//loadRounds();
 			} else {
 				displayError('Error finding rounds...' + xhr.statusText);
 			}
