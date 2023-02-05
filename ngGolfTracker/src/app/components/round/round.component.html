@@ -1,0 +1,34 @@
+<h1>Round Tracker</h1>
+<p>Home to all of the golf stats that matter most to your wallet</p>
+<ul>
+  <li *ngFor="let round of rounds">{{round.course}}</li>
+</ul>
+<div id="add" style="width: min-content">
+  <h4>Add a Round</h4>
+  <form name="newRoundForm" *ngIf="newRound">
+    <div class="input-group flex-nowrap"><span class="input-group-text" id="span">Course Name: </span><input type="text" name="course"
+      required="required" [(ngModel)]="newRound.course"></div>
+      <div class="input-group flex-nowrap"><span class="input-group-text" id="spanFee">Green
+      Fee: </span><span id="spanUSD" class="input-group-text">$</span><input type="number" name="greenFee" [(ngModel)]="newRound.greenFee" required="required"></div>
+      <div class="input-group flex-nowrap"><span class="input-group-text" id="span">Score: </span><input type="number" name="score" [(ngModel)]="newRound.score"
+      required="required"></div> <div class="input-group flex-nowrap"><span class="input-group-text" id="span">Lost
+      Balls: </span><input type="number" name="lostBalls" [(ngModel)]="newRound.lostBalls"></div> <div class="input-group flex-nowrap"><span class="input-group-text"
+      id="span">Beverages Purchased: </span><input type="number"
+      name="beveragesConsumed" [(ngModel)]="newRound.beveragesConsumed"></div>
+      <div class="input-group flex-nowrap"><button class="btn btn-primary" (click)="addRound(newRound)" type="button" id="button" name="button">Add Round</button></div>
+  </form>
+</div>
+<div id="editor" style="width: min-content">
+  <h4>Edit Round</h4>
+  <form name="editRoundForm">
+    <div class="input-group flex-nowrap"><span class="input-group-text" id="span">Course Name: </span><input type="text" name="course"></div>
+    <div class="input-group flex-nowrap"><span class="input-group-text" id="span">Green Fee: </span><input class="input-symbol-dollar" type="number"
+      name="greenFee"></div> <div class="input-group flex-nowrap"><span class="input-group-text" id="span">Score: </span><input
+      type="number" name="score"></div> <div class="input-group flex-nowrap"><span class="input-group-text" id="span">Lost
+      Balls: </span><input type="number" name="lostBalls"></div> <div class="input-group flex-nowrap"><span class="input-group-text"
+      id="span">Beverages Purchased: </span><input type="number"
+      name="beveragesConsumed"></div> <input type="hidden"
+      name="id">
+      <div class="input-group flex-nowrap"><button class="btn btn-primary" type="button" id="button" name="button">Edit Round</button></div>
+  </form>
+</div>
