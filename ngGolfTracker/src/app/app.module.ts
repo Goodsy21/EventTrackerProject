@@ -6,11 +6,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RoundComponent } from './components/round/round.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AveragesPipe } from './averages-pipe';
 
 @NgModule({
-  declarations: [AppComponent, RoundComponent],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, NgbModule],
-  providers: [],
+  declarations: [AppComponent, RoundComponent, AveragesPipe],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    NgbModule,
+  ],
+  providers: [AveragesPipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

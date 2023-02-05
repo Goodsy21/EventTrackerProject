@@ -8,6 +8,7 @@ import { Round } from 'src/app/models/round';
   styleUrls: ['./round.component.css'],
 })
 export class RoundComponent implements OnInit {
+  [x: string]: any;
   rounds: Round[] = [];
   newRound: Round | null = new Round();
 
