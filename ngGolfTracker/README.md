@@ -1,27 +1,47 @@
 # NgGolfTracker
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.3.
+GolfTracker is an API used to track stats for rounds of golf with a spin. Instead of a traditional tracker which focuses on bogeys and birdies and general scores, this tracker tracks lost balls, green fees, and beverages consumed; all with the purpose of tracking money spent.
 
-## Development server
+##Description
+After a round of golf a user can input their statistics which are stored in a database.
+Users can look up rounds by id, update by id, find all rounds, create new rounds or delete rounds.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+##REST Endpoints
 
-## Code scaffolding
+| HTTP Verb | URI                | Request Body                        | Response Body           |
+| --------- | ------------------ | ----------------------------------- | ----------------------- |
+| GET       | `/api/rounds`      |                                     | JSON of `List<Round>`   |
+| GET       | `/api/rounds/{id}` |                                     | JSON of `Round` 17      |
+| POST      | `/api/rounds`      | JSON of a new `Round`               | JSON of created `Round` |
+| PUT       | `/api/rounds/{id}` | JSON of a new version of `Round` 17 | JSON of updated `Round` |
+| DELETE    | `/api/rounds/{id}` |                                     |                         |
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+#Lessons Learned
 
-## Build
+- ATTENTION TO DETAIL... when you're banging your head against the wall to figure out a problem, don't hesitate to take a step back. Come back with fresh eyes and you'll likely realize the mistake you've made. You'll likely also beat yourself up about it, which is warranted, dummy; but at least you learned a lesson.
+- There are multiple ways to get something done. Don't try to solve every hangup with the same strategy.
+- Proper preparation for a task save a lot of time. As Abraham Lincoln said "If I only had an hour to chop down a tree, I would spend the first 45 minutes sharpening my axe.”
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+##Technologies and Methodologies Used
 
-## Running unit tests
+- Java
+- SQL
+- Hibernate
+- Spring Framework
+- Spring Boot
+- Postman
+- Gradle
+- MYsql
+- GIThub
+- AJAX
+- Angular
+- Bootstrap
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+##Project Goals
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- User integration and authentication
+- Course integration to include more details about the courses played
+- "Search by" functionality
+- More statistics: show correlations between multiple stats. Ex: variance from average per ball lost/greenFees/beverages.
+- Social(!) integration
+- Improve styling to include dynamic properties.
