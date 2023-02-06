@@ -16,15 +16,15 @@ export class AveragesPipe implements PipeTransform {
       totalBevs: 0,
       avgBevs: 0,
     };
-    for (let i = 0; i <= rounds.length; i++) {
+    for (let i = 0; i < rounds.length; i++) {
       averages.totalScore += rounds[i].score;
       averages.avgScore = averages.totalScore / rounds.length;
       averages.totalFees += rounds[i].greenFee;
       averages.avgFee = averages.totalFees / rounds.length;
       averages.totalBalls += rounds[i].lostBalls;
-      averages.avgBalls = averages.totalFees / rounds.length;
+      averages.avgBalls = averages.totalBalls / rounds.length;
       averages.totalBevs += rounds[i].beveragesConsumed;
-      averages.avgBevs = averages.totalFees / rounds.length;
+      averages.avgBevs = averages.totalBevs / rounds.length;
     }
     return averages;
   }

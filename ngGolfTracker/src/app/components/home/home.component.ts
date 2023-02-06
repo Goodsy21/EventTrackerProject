@@ -1,17 +1,16 @@
-import { AveragesPipe } from './../../averages-pipe';
-import { RoundService } from './../../services/round.service';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { AveragesPipe } from 'src/app/averages-pipe';
 import { Round } from 'src/app/models/round';
+import { RoundService } from 'src/app/services/round.service';
 
 @Component({
-  selector: 'app-round',
-  templateUrl: './round.component.html',
-  styleUrls: ['./round.component.css'],
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css'],
 })
-export class RoundComponent implements OnInit {
+export class HomeComponent {
   [x: string]: any;
   rounds: Round[] = [];
-
   averages = {
     totalScore: 0,
     avgScore: 0,

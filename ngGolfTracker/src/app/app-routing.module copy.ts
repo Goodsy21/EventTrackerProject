@@ -7,8 +7,10 @@ import { AddFormComponent } from './components/add-form/add-form.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
-  { path: 'edit/:round.id', component: EditFormComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'add', component: AddFormComponent },
+  { path: 'edit', component: EditFormComponent },
+  { path: 'round', component: RoundComponent },
 ];
 
 @NgModule({

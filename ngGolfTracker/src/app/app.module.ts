@@ -7,9 +7,12 @@ import { AppComponent } from './app.component';
 import { RoundComponent } from './components/round/round.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AveragesPipe } from './averages-pipe';
+import { AddFormComponent } from './components/add-form/add-form.component';
+import { EditFormComponent } from './components/edit-form/edit-form.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
-  declarations: [AppComponent, RoundComponent, AveragesPipe],
+  declarations: [AppComponent, RoundComponent, AveragesPipe, AddFormComponent, EditFormComponent, HomeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

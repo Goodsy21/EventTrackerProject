@@ -3,38 +3,64 @@
   <p>Home to all of the golf stats that matter most to your wallet</p>
 
   <!-- ALL ROUNDS DISPLAY -->
-  <table class="table table-hover table-bordered">
-    <thead>
-      <tr>
-        <td>ID</td>
-        <td>Course</td>
-        <td>Score</td>
-        <td>Green Fees</td>
-        <td>Lost Balls</td>
-        <td>Beverages</td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let round of rounds">
-        <td>{{ round.id }}</td>
-        <td>{{ round.course }}</td>
-        <td>{{ round.score }}</td>
-        <td>{{ round.greenFee }}</td>
-        <td>{{ round.lostBalls }}</td>
-        <td>{{ round.beveragesConsumed }}</td>
-      </tr>
-      <tr>
-        <td colspan="2">Averages</td>
-        <td>avgScore</td>
-        <td>avgGreenFee</td>
-        <td>avgLostBalls</td>
-        <td>avgBeverages</td>
-      </tr>
-    </tbody>
-  </table>
-
+  <div style="padding: 9px">
+    <table class="table table-hover table-bordered border-success">
+      <thead>
+        <tr>
+          <td>ID</td>
+          <td>Course</td>
+          <td>Score</td>
+          <td>Green Fees</td>
+          <td>Lost Balls</td>
+          <td>Beverages</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let round of rounds">
+          <td>{{ round.id }}</td>
+          <td>{{ round.course }}</td>
+          <td>{{ round.score }}</td>
+          <td>{{ round.greenFee }}</td>
+          <td>{{ round.lostBalls }}</td>
+          <td>{{ round.beveragesConsumed }}</td>
+          <td>
+            <div
+              class="btn-group"
+              role="group"
+              aria-label="Basic mixed styles example"
+            >
+              <button
+                [routerLink]="['/edit', round.id]"
+                type="button"
+                class="btn btn-primary"
+              >
+                Edit
+              </button>
+              <button
+                (click)="this.deleteRound(round.id)"
+                type="button"
+                class="btn btn-danger"
+              >
+                Delete
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2">Per round average</td>
+          <td>{{ averages.avgScore | number : "2.0-1" }}</td>
+          <td>${{ averages.avgFee | number : "1.0-2" }}</td>
+          <td>{{ averages.avgBalls | number : "1.0-1" }}</td>
+          <td>{{ averages.avgBevs | number : "1.0-1" }}</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <!-- <app-add-form></app-add-form> -->
   <!-- ADD A ROUND FORM -->
-  <div>
+  <!-- <div name="addRound">
     <h4>Add a Round</h4>
     <form name="newRoundForm" *ngIf="newRound">
       <div class="input-group">
@@ -46,7 +72,7 @@
           [(ngModel)]="newRound.course"
         />
       </div>
-      <div class="input-group flex-nowrap">
+      <div class="input-group">
         <span class="input-group-text" id="spanFee">Green Fee: </span
         ><span id="spanUSD" class="input-group-text">$</span
         ><input
@@ -82,49 +108,10 @@
         />
       </div>
       <div class="input-group flex-nowrap">
-        <button
-          class="btn btn-primary"
-          (click)="addRound(newRound)"
-          type="button"
-          id="button"
-          name="button"
-        >
+        <button class="btn btn-primary" (click)="addRound(newRound)">
           Add Round
         </button>
       </div>
     </form>
-  </div>
-
-  <!-- EDIT ROUND FORM -->
-  <div id="editor">
-    <h4>Edit Round</h4>
-    <form name="editRoundForm">
-      <div class="input-group flex-nowrap">
-        <span class="input-group-text" id="span">Course Name: </span
-        ><input type="text" name="course" />
-      </div>
-      <div class="input-group flex-nowrap">
-        <span class="input-group-text" id="span">Green Fee: </span
-        ><input class="input-symbol-dollar" type="number" name="greenFee" />
-      </div>
-      <div class="input-group flex-nowrap">
-        <span class="input-group-text" id="span">Score: </span
-        ><input type="number" name="score" />
-      </div>
-      <div class="input-group flex-nowrap">
-        <span class="input-group-text" id="span">Lost Balls: </span
-        ><input type="number" name="lostBalls" />
-      </div>
-      <div class="input-group flex-nowrap">
-        <span class="input-group-text" id="span">Beverages Purchased: </span
-        ><input type="number" name="beveragesConsumed" />
-      </div>
-      <input type="hidden" name="id" />
-      <div class="input-group flex-nowrap">
-        <button class="btn btn-primary" type="button" id="button" name="button">
-          Edit Round
-        </button>
-      </div>
-    </form>
-  </div>
+  </div> -->
 </div>

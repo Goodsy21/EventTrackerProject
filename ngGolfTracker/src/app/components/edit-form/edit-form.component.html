@@ -1,0 +1,62 @@
+<div class="justify-content-center align-items-center text-center">
+  <app-round></app-round>
+  <h4 style="margin-bottom: 0px">Edit Round</h4>
+  <form name="editRoundForm" style="margin: 25px; display: inline-block">
+    <div class="input-group" style="margin: 3px">
+      <span class="input-group-text" style="min-width: 189px"
+        >Course Name: </span
+      ><input
+        type="text"
+        name="round.course"
+        [(ngModel)]="roundToUpdate.course"
+      />
+    </div>
+    <div class="input-group" style="margin: 3px">
+      <span class="input-group-text" style="min-width: 164px">Green Fee: </span
+      ><span class="input-group-text" style="width: 5px; text-align: center"
+        >$</span
+      ><input
+        type="number"
+        name="round.greenFee"
+        [(ngModel)]="roundToUpdate.greenFee"
+      />
+    </div>
+    <div class="input-group" style="margin: 3px">
+      <span class="input-group-text" style="min-width: 189px">Score: </span
+      ><input
+        type="number"
+        name="round.score"
+        [(ngModel)]="roundToUpdate.score"
+      />
+    </div>
+    <div class="input-group" style="margin: 3px">
+      <span class="input-group-text" style="min-width: 189px">Lost Balls: </span
+      ><input
+        type="number"
+        name="round.lostBalls"
+        [(ngModel)]="roundToUpdate.lostBalls"
+      />
+    </div>
+    <div class="input-group" style="margin: 3px">
+      <span class="input-group-text" style="min-width: 189px"
+        >Beverages Purchased: </span
+      ><input
+        type="number"
+        name="round.beveragesConsumed"
+        [(ngModel)]="roundToUpdate.beveragesConsumed"
+      />
+    </div>
+    <input type="hidden" name="round.id" [(ngModel)]="roundToUpdate.id" />
+    <div class="input-group" style="margin: 3px">
+      <button
+        style="min-width: 200px; margin-left: 92px"
+        routerLink="/home"
+        class="btn btn-primary"
+        type="button"
+        (click)="updateRound()"
+      >
+        Edit Round
+      </button>
+    </div>
+  </form>
+</div>

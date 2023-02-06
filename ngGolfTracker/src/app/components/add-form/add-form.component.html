@@ -1,0 +1,64 @@
+<!-- ADD A ROUND FORM -->
+<div
+  class="justify-content-center align-items-center text-center"
+  name="addRound"
+>
+  <h4>Add a Round</h4>
+  <form
+    name="newRoundForm"
+    style="margin: 25px; display: inline-block"
+    *ngIf="newRound"
+  >
+    <div class="input-group" style="margin: 3px">
+      <span class="input-group-text" style="min-width: 189px"
+        >Course Name: </span
+      ><input
+        type="text"
+        name="course"
+        required="required"
+        [(ngModel)]="newRound.course"
+      />
+    </div>
+    <div class="input-group" style="margin: 3px">
+      <span class="input-group-text" style="min-width: 164px">Green Fee: </span
+      ><span class="input-group-text" style="width: 5px">$</span
+      ><input
+        type="number"
+        name="greenFee"
+        [(ngModel)]="newRound.greenFee"
+        required="required"
+      />
+    </div>
+    <div class="input-group" style="margin: 3px">
+      <span class="input-group-text" style="min-width: 189px">Score: </span
+      ><input
+        type="number"
+        name="score"
+        [(ngModel)]="newRound.score"
+        required="required"
+      />
+    </div>
+    <div class="input-group" style="margin: 3px">
+      <span class="input-group-text" style="min-width: 189px">Lost Balls: </span
+      ><input type="number" name="lostBalls" [(ngModel)]="newRound.lostBalls" />
+    </div>
+    <div class="input-group" style="margin: 3px">
+      <span class="input-group-text" style="min-width: 189px"
+        >Beverages Purchased: </span
+      ><input
+        type="number"
+        name="beveragesConsumed"
+        [(ngModel)]="newRound.beveragesConsumed"
+      />
+    </div>
+    <div class="input-group" style="margin: 3px">
+      <button
+        class="btn btn-primary"
+        style="margin-left: 137px"
+        (click)="addRound(newRound)"
+      >
+        Add Round
+      </button>
+    </div>
+  </form>
+</div>
