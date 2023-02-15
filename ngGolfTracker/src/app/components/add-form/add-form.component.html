@@ -13,6 +13,7 @@
       <span class="input-group-text" style="min-width: 189px"
         >Course Name: </span
       ><input
+        class="form-control"
         type="text"
         name="course"
         required="required"
@@ -23,6 +24,7 @@
       <span class="input-group-text" style="min-width: 164px">Green Fee: </span
       ><span class="input-group-text" style="width: 5px">$</span
       ><input
+        class="form-control"
         type="number"
         name="greenFee"
         [(ngModel)]="newRound.greenFee"
@@ -32,6 +34,7 @@
     <div class="input-group" style="margin: 3px">
       <span class="input-group-text" style="min-width: 189px">Score: </span
       ><input
+        class="form-control"
         type="number"
         name="score"
         [(ngModel)]="newRound.score"
@@ -40,12 +43,18 @@
     </div>
     <div class="input-group" style="margin: 3px">
       <span class="input-group-text" style="min-width: 189px">Lost Balls: </span
-      ><input type="number" name="lostBalls" [(ngModel)]="newRound.lostBalls" />
+      ><input
+        class="form-control"
+        type="number"
+        name="lostBalls"
+        [(ngModel)]="newRound.lostBalls"
+      />
     </div>
     <div class="input-group" style="margin: 3px">
       <span class="input-group-text" style="min-width: 189px"
         >Beverages Purchased: </span
       ><input
+        class="form-control"
         type="number"
         name="beveragesConsumed"
         [(ngModel)]="newRound.beveragesConsumed"
@@ -53,8 +62,7 @@
     </div>
     <div class="input-group" style="margin: 3px">
       <button
-        class="btn btn-primary"
-        style="margin-left: 137px"
+        class="btn btn-primary form-control center"
         (click)="addRound(newRound)"
       >
         Add Round

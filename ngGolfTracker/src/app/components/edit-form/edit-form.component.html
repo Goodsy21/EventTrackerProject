@@ -6,6 +6,7 @@
       <span class="input-group-text" style="min-width: 189px"
         >Course Name: </span
       ><input
+        class="form-control"
         type="text"
         name="round.course"
         [(ngModel)]="roundToUpdate.course"
@@ -16,6 +17,7 @@
       ><span class="input-group-text" style="width: 5px; text-align: center"
         >$</span
       ><input
+        class="form-control"
         type="number"
         name="round.greenFee"
         [(ngModel)]="roundToUpdate.greenFee"
@@ -24,6 +26,7 @@
     <div class="input-group" style="margin: 3px">
       <span class="input-group-text" style="min-width: 189px">Score: </span
       ><input
+        class="form-control"
         type="number"
         name="round.score"
         [(ngModel)]="roundToUpdate.score"
@@ -32,6 +35,7 @@
     <div class="input-group" style="margin: 3px">
       <span class="input-group-text" style="min-width: 189px">Lost Balls: </span
       ><input
+        class="form-control"
         type="number"
         name="round.lostBalls"
         [(ngModel)]="roundToUpdate.lostBalls"
@@ -41,6 +45,7 @@
       <span class="input-group-text" style="min-width: 189px"
         >Beverages Purchased: </span
       ><input
+        class="form-control"
         type="number"
         name="round.beveragesConsumed"
         [(ngModel)]="roundToUpdate.beveragesConsumed"
@@ -49,9 +54,8 @@
     <input type="hidden" name="round.id" [(ngModel)]="roundToUpdate.id" />
     <div class="input-group" style="margin: 3px">
       <button
-        style="min-width: 200px; margin-left: 92px"
         routerLink="/home"
-        class="btn btn-primary"
+        class="btn btn-primary form-control center"
         type="button"
         (click)="updateRound()"
       >

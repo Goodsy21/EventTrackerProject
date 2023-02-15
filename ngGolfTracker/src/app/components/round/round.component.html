@@ -3,8 +3,8 @@
   <p>Home to all of the golf stats that matter most to your wallet</p>
 
   <!-- ALL ROUNDS DISPLAY -->
-  <div style="padding: 9px">
-    <table class="table table-hover table-bordered border-success">
+  <div class="flexbox-lg" style="padding: 15px">
+    <table class="table table-hover table-bordered border-success text-light">
       <thead>
         <tr>
           <td>ID</td>
@@ -13,6 +13,7 @@
           <td>Green Fees</td>
           <td>Lost Balls</td>
           <td>Beverages</td>
+          <td>Edit/Delete</td>
         </tr>
       </thead>
       <tbody>
@@ -52,8 +53,21 @@
           <td colspan="2">Per round average</td>
           <td>{{ averages.avgScore | number : "2.0-1" }}</td>
           <td>${{ averages.avgFee | number : "1.0-2" }}</td>
-          <td>{{ averages.avgBalls | number : "1.0-1" }}</td>
-          <td>{{ averages.avgBevs | number : "1.0-1" }}</td>
+          <td>
+            {{ averages.avgBalls | number : "1.1-2" }}<br />@ $5/ea = ${{
+              averages.avgBalls * 5 | number : "1.0-2"
+            }}
+          </td>
+          <td>
+            {{ averages.avgBevs | number : "1.0-1" }} <br />
+            @ $8/ea = ${{ averages.avgBevs * 8 | number : "1.0-2" }}
+          </td>
+          <td>
+            TOTAL<br />
+            ${{
+              averages.avgFee + averages.avgBevs * 8 + averages.avgBalls * 5
+            }}/round
+          </td>
         </tr>
       </tfoot>
     </table>

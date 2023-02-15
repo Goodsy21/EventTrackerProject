@@ -162,6 +162,7 @@ function displayRounds(rounds) {
 	let tableHead4 = document.createElement('th');
 	let tableHead5 = document.createElement('th');
 	let tableHead6 = document.createElement('th');
+	let tableHead7 = document.createElement('th');
 	let tableBody = document.createElement('tbody');
 
 	tableHead1.textContent = 'ID';
@@ -170,6 +171,7 @@ function displayRounds(rounds) {
 	tableHead4.textContent = 'Balls Lost';
 	tableHead5.textContent = 'Beverages Consumed';
 	tableHead6.textContent = 'Green Fee';
+	tableHead7.textContent = 'Edit/Delete';
 	div.append(table);
 	table.append(tableHead);
 	tableHead.append(tableRow);
